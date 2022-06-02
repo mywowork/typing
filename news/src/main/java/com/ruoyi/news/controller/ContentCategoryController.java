@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.news.domain.ContentCategory;
 import com.ruoyi.news.service.IContentCategoryService;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

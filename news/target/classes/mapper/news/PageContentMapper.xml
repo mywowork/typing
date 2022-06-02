@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.system.mapper.PageContentMapper">
-    
+<mapper namespace="com.ruoyi.news.mapper.PageContentMapper">
+
     <resultMap type="PageContent" id="PageContentResult">
         <result property="id"    column="id"    />
         <result property="title"    column="title"    />
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectPageContentList" parameterType="PageContent" resultMap="PageContentResult">
         <include refid="selectPageContentVo"/>
-        <where>  
+        <where>
             <if test="title != null  and title != ''"> and title = #{title}</if>
             <if test="owner != null "> and owner = #{owner}</if>
             <if test="categoryId != null "> and category_id = #{categoryId}</if>
@@ -30,12 +30,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="body != null  and body != ''"> and body = #{body}</if>
         </where>
     </select>
-    
+
     <select id="selectPageContentById" parameterType="Long" resultMap="PageContentResult">
         <include refid="selectPageContentVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertPageContent" parameterType="PageContent" useGeneratedKeys="true" keyProperty="id">
         insert into page_content
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deletePageContentByIds" parameterType="String">
-        delete from page_content where id in 
+        delete from page_content where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
