@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PageContentMapper">
+
+    <resultMap type="PageContent" id="PageContentResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="owner"    column="owner"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateDate"    column="update_date"    />
+        <result property="resume"    column="resume"    />
+        <result property="body"    column="body"    />
+    </resultMap>
+
+    <sql id="selectPageContentVo">
+        select id, title, owner, category_id, create_date, update_date, resume, body from page_content
+    </sql>
+
+    <select id="selectPageContentList" parameterType="PageContent" resultMap="PageContentResult">
+        <include refid="selectPageContentVo"/>
+        <where>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="owner != null "> and owner = #{owner}</if>
+            <if test="categoryId != null "> and category_id = #{categoryId}</if>
+            <if test="createDate != null "> and create_date = #{createDate}</if>
+            <if test="updateDate != null "> and update_date = #{updateDate}</if>
+            <if test="body != null  and body != ''"> and body = #{body}</if>
+        </where>
+    </select>
+
+    <select id="selectPageContentById" parameterType="Long" resultMap="PageContentResult">
+        <include refid="selectPageContentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPageContent" parameterType="PageContent" useGeneratedKeys="true" keyProperty="id">
+        insert into page_content
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="owner != null">owner,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="updateDate != null">update_date,</if>
+            <if test="resume != null">resume,</if>
+            <if test="body != null and body != ''">body,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="owner != null">#{owner},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="updateDate != null">#{updateDate},</if>
+            <if test="resume != null">#{resume},</if>
+            <if test="body != null and body != ''">#{body},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePageContent" parameterType="PageContent">
+        update page_content
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+            <if test="owner != null">owner = #{owner},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="updateDate != null">update_date = #{updateDate},</if>
+            <if test="resume != null">resume = #{resume},</if>
+            <if test="body != null and body != ''">body = #{body},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePageContentById" parameterType="Long">
+        delete from page_content where id = #{id}
+    </delete>
+
+    <delete id="deletePageContentByIds" parameterType="String">
+        delete from page_content where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
