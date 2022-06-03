@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilde
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 
 /**
  * 程序注解配置
@@ -25,6 +26,7 @@ public class ApplicationConfig
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jacksonObjectMapperCustomization()
     {
+       // ImportBeanDefinitionRegistrar a;MapperScannerRegistrar
         return jacksonObjectMapperBuilder -> jacksonObjectMapperBuilder.timeZone(TimeZone.getDefault());
     }
 }
